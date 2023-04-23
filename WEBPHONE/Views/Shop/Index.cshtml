@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ShopConnection.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<section id="top-sale">
+    <div class="container py-5">
+        <h4 class="font-size-20">Top Sale</h4>
+        <hr>
+        <!-- owl carousel -->
+        <div class="owl-carousel owl-theme">
+            @foreach (var item in Model)
+            {
+                <div class="item py-2 border rounded-2 bg-light">
+                    <div class="product" style="width:200px;height:350px">
+                        <input type="hidden" value="@item.MaSP" id="@($"product-id-{item.MaSP}")" />
+                        <a href="@Url.Action("Details",new {  id= @item.MaSP})"><img src="~/assets/assets/products/@item.HinhChinh" alt="product1" class="img-fluid" id="@($"product-image-{item.MaSP}")" style="height:211px"></a>
+                        <div class="text-center" style="height:100px">
+                            <h6 id="@($"product-name-{item.MaSP}")">@item.TenSp</h6>
+                            <div class="rating text-warning font-size-12">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                            <div class="price py-2">
+                                <span id="@($"product-price-{item.MaSP}")">$@item.Gia</span>
+                            </div>
+
+                        </div>
+                        <input id="@($"add-to-cart-button-{item.MaSP}")" class="btn btn-2" style="background:gold;margin-left:5px" value="Thêm vào giỏ"/>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+        <!-- !owl carousel -->
+    </div>
+</section>
+<!-- !Top Sale -->
+<script>
+    var addToCartButton = document.getElementById('add-to-cart-button');
+
+    var addToCartButtons = document.querySelectorAll('[id^="add-to-cart-button-"]');
+    addToCartButtons.forEach(function (addToCartButton) {
+        addToCartButton.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Lấy thông tin sản phẩm
+            var productId = document.getElementById(addToCartButton.id.replace("add-to-cart-button", "product-id")).value;
+            var productName = document.getElementById(addToCartButton.id.replace("add-to-cart-button", "product-name")).innerText;
+            var productPrice = document.getElementById(addToCartButton.id.replace("add-to-cart-button", "product-price")).innerText;
+            var productImage = document.getElementById(addToCartButton.id.replace("add-to-cart-button", "product-image")).src;
+            console.log(productId, productImage, productPrice, productName)
+
+            // Lấy danh sách CartItem từ Session
+            var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+
+            // Tìm kiếm sản phẩm trong danh sách CartItem
+            var existingCartItem = cartItems.find(function (cartItem) {
+                return cartItem.productId === productId;
+            });
+
+            if (existingCartItem) {
+                // Sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng sản phẩm
+                existingCartItem.productQuantity = parseInt(existingCartItem.productQuantity) + 1;
+            } else {
+                // Thêm CartItem mới vào danh sách
+                var cartItem = {
+                    productId: productId,
+                    productName: productName,
+                    productPrice: productPrice,
+                    productImage: productImage,
+                    productQuantity: 1,
+                };
+                cartItems.push(cartItem);
+            }
+
+            // Lưu danh sách CartItem vào Session
+            sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+            alert("Thêm thành công sản phẩm vào giỏ hàng")
+        
+            window.location.href = "@Url.Action("Index","GioHang")";
+            // Cập nhật số lượng sản phẩm trong giỏ hàng
+
+        });
+    });
+
+
+
+</script>

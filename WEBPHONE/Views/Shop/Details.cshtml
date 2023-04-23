@@ -1,0 +1,196 @@
+﻿@model ShopConnection.SanPham 
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<!-- start #main-site -->
+<main id="main-site">
+    <!-- start product -->
+    <section id="product" class="py-3">
+        <div class="container">
+            <div class="row">
+                <input type="hidden" value="@Model.MaSP" id="product-id"/>
+                <div class="col-sm-6">
+                    <img src="~/assets/assets/products/@Model.HinhChinh" alt="product" class="img-fluid" id="product-image">
+
+                </div>
+                <div class="col-sm-6 py-5">
+                    <h5 class="font-size-20" id="product-name">@Model.TenSp</h5>
+                    <small>by @Model.MaNSX</small>
+                    <div class="d-flex">
+                        <div class="rating text-warning font-size-12">
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="fas fa-star"></i></span>
+                            <span><i class="far fa-star"></i></span>
+                        </div>
+                        <a href="#" class="px-2 font-size-14">
+                            @Model.LuotXem ratings | 1000+ answered
+                            questions
+                        </a>
+                    </div>
+                    <hr class="m-0">
+                    <!--- product price -->
+                    <table class="my-3 font-size-14">
+                        <tr>
+                            <td>You Save:</td>
+                            <td><span class="font-size-16 text-danger" id="product-price">@Model.Gia</span> VNĐ</td>
+                        </tr>
+                    </table>
+
+
+                 
+
+
+                    <input class="btn btn-2 " value="Thêm vào Giỏ" style="background:gold" id="add-to-cart-button" />
+
+
+
+
+
+                    <!--- !product price -->
+                    <!--    #policy -->
+                    <div id="policy">
+                        <div class="d-flex">
+                            <div class="return text-center me-5">
+                                <div class="font-size-20 my-2 color-second">
+                                    <span class="fas fa-retweet border p-3 rounded-pill"></span>
+                                </div>
+                                <a href="#" class="font-size-12">10 Days <br> Replacement</a>
+                            </div>
+                            <div class="return text-center me-5">
+                                <div class="font-size-20 my-2 color-second">
+                                    <span class="fas fa-truck  border p-3 rounded-pill"></span>
+                                </div>
+                                <a href="#" class="font-size-12">About <br>Our</a>
+                            </div>
+                            <div class="return text-center me-5">
+                                <div class="font-size-20 my-2 color-second">
+                                    <span class="fas fa-check-double border p-3 rounded-pill"></span>
+                                </div>
+                                <a href="#" class="font-size-12">1 Year <br>Warranty</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- !policy -->
+                    <hr>
+                    <!-- order-details -->
+                    <div id="order-details" class="d-flex flex-column">
+                        <small>Delivery by : Mar 29 - Apr 1</small>
+                        <small>Sold by <a href="#">Daily Electronics </a>(4.5 out of 5 | 18,198 ratings)</small>
+                        <small>
+                            <i class="fas fa-map-marker-alt color-primary"></i>&nbsp;&nbsp;Deliver to Customer -
+                            424201
+                        </small>
+                    </div>
+                    <!-- !order-details -->
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- color -->
+                            <div class="color my-3">
+                                <div class="d-flex justify-content-between">
+                                    <h6>Color:</h6>
+                                    <div class="p-2 color-yellow-bg rounded-circle">
+                                        <button class="btn font-size-14"></button>
+                                    </div>
+                                    <div class="p-2 color-primary-bg rounded-circle">
+                                        <button class="btn font-size-14"></button>
+                                    </div>
+                                    <div class="p-2 color-second-bg rounded-circle">
+                                        <button class="btn font-size-14"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- !color -->
+                        </div>
+
+                    </div>
+                    <!-- size -->
+                    <div class="size my-3">
+                        <h6>Size :</h6>
+                        <div class="d-flex justify-content-between w-75">
+                            <div class="border p-2">
+                                <button type="button" class="btn p-0 font-size-14">4GB RAM</button>
+                            </div>
+                            <div class="border p-2">
+                                <button type="button" class="btn p-0 font-size-14">6GB RAM</button>
+                            </div>
+                            <div class="border p-2">
+                                <button type="button" class="btn p-0 font-size-14">8GB RAM</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- !size -->
+                </div>
+
+            </div>
+        </div>
+    </section>
+    @Html.Partial("_BinhLuan", WEBPHONE.Models.BUSS.BinhLuanBUS.LoadBinhLuan())
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form method="post" action="~/BinhLuan/Create" style="padding:0 20px; margin-bottom:40px">
+            <input type="hidden" name="masanpham" value="@Model.MaSP">
+            <textarea style="width:100%;max-width:100%;max-height:300px;" maxlength="2048" placeholder="Nhập nội dung cần bình luận...." name="noidung"></textarea>
+            <input type="submit" value="Bình Luận" style="float:right;background:gold; color:white;margin-bottom:10px" />
+        </form>
+    }
+    else
+    {
+        <h2 style="padding:0 20px">Vui lòng đăng nhập để bình luận</h2>
+    }
+
+
+
+</main>
+
+<script>
+    var addToCartButton = document.getElementById('add-to-cart-button');
+    addToCartButton.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // Lấy thông tin sản phẩm
+        var productId = document.getElementById('product-id').value;
+        var productName = document.getElementById('product-name').innerText;
+        var productPrice = document.getElementById('product-price').innerText;
+        var productImage = document.getElementById('product-image').src;
+
+        // Lấy danh sách CartItem từ Session
+        var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+
+        // Tìm kiếm sản phẩm trong danh sách CartItem
+        var existingCartItem = cartItems.find(function (cartItem) {
+            return cartItem.productId === productId;
+        });
+
+        if (existingCartItem) {
+            // Sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng sản phẩm
+            existingCartItem.productQuantity = parseInt(existingCartItem.productQuantity) + 1;
+        } else {
+            // Thêm CartItem mới vào danh sách
+            var cartItem = {
+                productId: productId,
+                productName: productName,
+                productPrice: productPrice,
+                productImage: productImage,
+                productQuantity: 1,
+            };
+            cartItems.push(cartItem);
+        }
+
+        // Lưu danh sách CartItem vào Session
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+        alert("Thêm thành công sản phẩm vào giỏ hàng")
+
+         window.location.href = "@Url.Action("Index","GioHang")";
+        // Cập nhật số lượng sản phẩm trong giỏ hàng
+
+    });
+
+
+
+</script>
+<!-- !start #main-site -->

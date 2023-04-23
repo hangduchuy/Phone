@@ -1,0 +1,221 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<style>
+    /* Style the cart table */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 0.75rem;
+        vertical-align: top;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td {
+        border-bottom: 1px solid #ddd;
+    }
+
+     td .cart-item {
+            display: flex;
+            align-items: center;
+        }
+    .cart-item-image img{
+        width: 100px;
+        height:150px
+    }
+    .quantity-button{
+        padding: 1px 10px;
+    }
+
+
+</style>
+<div id="page-content" class="single-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <span>></span>
+                    <li><a href=@Url.Action("Index", "GioHang")>Cart</a></li>
+                </ul>
+            </div>
+        </div>
+   
+
+        <div id="cart">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hình Ảnh Sản Phẩm</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Tạm Tính</th>
+                    </tr>   
+                </thead>
+                <tbody>
+                <td>
+
+                </td>
+                </tbody>
+            </table>
+        </div>
+    
+        <div style="display:flex;justify-content:space-between ; margin-bottom: 20px">
+            <div class="col-md-4 col-md-offset-8 " style="background:gold; height:40px; text-align:center; border-radius:6px">
+                <a href="@Url.Action("index", "Shop")" class="btn btn-1">Continue To Shopping</a>
+            </div>
+            @*Tính tiền*@
+
+            <div class="col-md-8 ">
+                <div class="col-md-offset-8" style="align-items:center;">
+                   
+                        
+                        <div class="total"style="display:flex; justify-content:end">
+                            <p>Tổng Tiền:</p>
+                            <span class="total-price" id="cart-total"></span>
+                        </div>
+                        <div style="text-align: center; background: gold; float: right; border-radius: 6px;width:200px">
+                            <a href="@Url.Action("Index", "ThanhToan")" class="btn btn-1">Checkout</a>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<script>
+    var tbody = document.querySelector("tbody")
+    // Lấy danh sách CartItem từ Session
+    function renderCart() {
+        var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+
+        if (cartItems.length === 0) {
+            cartItemsDiv.innerHTML = '<p>Giỏ hàng trống</p>';
+        } else {
+            var cartItemsHtml = '';
+            for (var i = 0; i < cartItems.length; i++) {
+                var cartItem = cartItems[i];
+                cartItemsHtml += `
+                <tr>
+                  <div class="cart-item">
+                    <td>
+                        <div class="cart-item-image">
+                          <img src="${cartItem.productImage}" alt="${cartItem.productName}">
+                        </div>
+                    </td>   
+
+                    <td>
+                      <p class="cart-item-name">${cartItem.productName}</p>
+                    </td> 
+                    <td>
+                     <button class="quantity-button" data-cart-item-index="${i}" data-quantity-change="decrease">-</button>
+                            <input class="cart-item-quantity"  value=${cartItem.productQuantity} disabled style="text-align:center; width: 100px">
+                            <button class="quantity-button" data-cart-item-index="${i}" data-quantity-change="increase">+</button>
+                    </td> 
+                    <td>
+                      <p class="cart-item-price"></p>
+                    </td> 
+                <td>
+                  <button class="btn btn-danger btn-sm remove-item-btn" data-product-id="${cartItem.productId}">Xóa</button>
+                </td>
+
+                  </div>
+                </tr>
+                `;
+            }
+            tbody.innerHTML = cartItemsHtml;
+            var removeButtons = document.querySelectorAll('.remove-item-btn');
+            removeButtons.forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    var productId = this.dataset.productId;
+                    // Tìm index của sản phẩm cần xóa trong danh sách cartItems
+                    var cartItemIndex = cartItems.findIndex(function (item) {
+                        return item.productId === productId;
+                    });
+                    if (cartItemIndex > -1) {
+                        // Xóa sản phẩm khỏi danh sách cartItems
+                        cartItems.splice(cartItemIndex, 1);
+                        // Lưu danh sách mới vào sessionStorage
+                        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+                        // Cập nhật lại bảng giỏ hàng
+                        renderCart();
+                    }
+                });
+            });
+
+
+            var quantityButtons = document.querySelectorAll('.quantity-button');
+            quantityButtons.forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    var cartItemIndex = parseInt(this.dataset.cartItemIndex);
+                    var quantityChange = this.dataset.quantityChange;
+
+                    var cartItem = cartItems[cartItemIndex];
+
+                    if (quantityChange === 'decrease') {
+                        if (cartItem.productQuantity > 1) {
+                            cartItem.productQuantity--;
+                            sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+                            var cartItemQuantityElement = this.parentElement.querySelector('.cart-item-quantity');
+                            cartItemQuantityElement.innerText = cartItem.productQuantity;
+                        }
+                    } else if (quantityChange === 'increase') {
+                        cartItem.productQuantity++;
+                        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+                        var cartItemQuantityElement = this.parentElement.querySelector('.cart-item-quantity');
+                        cartItemQuantityElement.innerText = cartItem.productQuantity;
+                    }
+
+                    // Tính lại giá trị giỏ hàng
+                    caculatorCart();
+
+                    // Render lại giỏ hàng
+                    renderCart();
+                });
+            });
+
+            // Tính tổng giá trị giỏ hàng
+            caculatorCart();
+        }
+    }
+
+
+        // Tính tổng số tiền trong giỏ hàng
+        function caculatorCart() {
+
+            var total = 0;
+            var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+            var tamtinh = document.querySelectorAll(".cart-item-price")
+            for (var i = 0; i < cartItems.length; i++) {
+                var cartItem = cartItems[i];
+                var price = parseFloat(cartItem.productPrice.replace(/\D/g, ''));
+                var quantity = parseInt(cartItem.productQuantity, 10);
+                total += price * quantity;
+                tamtinh[i].innerText = price * quantity;
+            }
+        
+            // Hiển thị tổng số tiền
+            var totalDiv = document.getElementById('cart-total');
+            totalDiv.innerText = 'Tổng tiền: ' + total.toLocaleString() + ' đ';
+    }
+  
+    renderCart()
+
+</script>
+
