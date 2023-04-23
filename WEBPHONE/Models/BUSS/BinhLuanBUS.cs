@@ -17,9 +17,13 @@ namespace WEBPHONE.Models.BUSS
 
             using (var db = new ShopConnectionDB())
             {
+                var user = db.SingleOrDefault<AspNetUser>("SELECT * FROM AspNetUsers WHERE Id = @0", mataikhoan);
+                string userName = (user != null) ? user.UserName : "Acount";
+
                 BinhLuan binhluan = new BinhLuan()
                 {
                     CustomerID=mataikhoan,
+                    Name=userName,
                     ProductID=masanpham,
                     Content=noidung,
                     NgayBL = DateTime.Now,
