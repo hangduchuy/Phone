@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
+@{
+    var culture = new System.Globalization.CultureInfo("vi-VN");
+    var formattedGia = String.Format(culture, "{0:C0}", @Model.Gia);
+}
+
 <!-- start #main-site -->
 <main id="main-site">
     <!-- start product -->
@@ -35,20 +40,18 @@
                     <!--- product price -->
                     <table class="my-3 font-size-14">
                         <tr>
-                            <td>You Save:</td>
+                            <td style="padding-right: 9px">You Save:</td>
                             <td><span class="font-size-16 text-danger" id="product-price">@Model.Gia</span> VNĐ</td>
                         </tr>
                     </table>
-
-
-                 
-
+                    @*<table class="my-3 font-size-14">
+                        <tr>
+                            <td style="padding-right: 9px">You Save:</td>
+                            <td><span class="font-size-16 text-danger" id="product-price">@formattedGia</span></td>
+                        </tr>
+                    </table>*@
 
                     <input class="btn btn-2 " value="Thêm vào Giỏ" style="background:gold" id="add-to-cart-button" />
-
-
-
-
 
                     <!--- !product price -->
                     <!--    #policy -->
@@ -132,10 +135,10 @@
 
     @if (User.Identity.IsAuthenticated)
     {
-        <form method="post" action="~/BinhLuan/Create" style="padding:0 20px; margin-bottom:40px">
+        <form method="post" action="~/BinhLuan/Create" style="padding:0 20px; margin-bottom:40px; display:flex;">
             <input type="hidden" name="masanpham" value="@Model.MaSP">
-            <textarea style="width:100%;max-width:100%;max-height:300px;" maxlength="2048" placeholder="Nhập nội dung cần bình luận...." name="noidung"></textarea>
-            <input type="submit" value="Bình Luận" style="float:right;background:gold; color:white;margin-bottom:10px" />
+            <textarea style="width:55%; padding:5px; max-width:100%;max-height:300px;" maxlength="2048" placeholder="Nhập nội dung cần bình luận...." name="noidung"></textarea>
+            <input type="submit" value="Bình Luận" style="background:#808080; color:white; padding:10px; margin-left:15px"  />
         </form>
     }
     else

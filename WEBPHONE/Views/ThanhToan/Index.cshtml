@@ -73,7 +73,7 @@
     
 </style>
 
-<div>
+<div style="margin:auto; width: 60%;" >
     <h2>Thông Tin Đặt Hàng</h2>
     @using (Html.BeginForm("Them", "ThanhToan", FormMethod.Post))
     {
@@ -88,28 +88,36 @@
             <label for="sdt">Số điện thoại</label>
             <input type="text" class="form-control" id="sdt" name="sdt" placeholder="Nhập số điện thoại người nhận" required>
         </div>
-        <div class="totalBill"></div>
-        <div class="total"></div>
-        <div style="background: gold; display: flex; justify-content: center; align-items: center; border-radius: 6px; margin:0 20px">
-            <input type="submit" class="btn btn-2 payment" value="Đặt hàng" onclick={handlePay()} />
-        </div>
-    }
+        <div class="totalBill" style="margin: 0 0 10px 20px"></div>
+            <div class="total"></div>
+            <div style="background: gold; display: flex; justify-content: center; align-items: center; border-radius: 6px; margin:15px 20px">
+                <input type="submit" class="btn btn-2 payment" value="Đặt hàng" onclick={handlePay()} />
+            </div>
 
+    }
     <div class="coast"></div>
-</div>
+</div>   
 <script>
     var cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    console.log(cartItems);
     var totalBill = document.querySelector(".totalBill")
     let t = document.querySelector(".total")
     var total = 0;
     cartItems.forEach(function (cartItem) {
-       
+        console.log(cartItem.productQuantity, cartItem.productPrice);
         var subTotal = cartItem.productQuantity * cartItem.productPrice;
         total += subTotal;
+        console.log(subTotal);
+       
     });
+    console.log("Total: " + total);
     totalBill.innerText = 'Tổng giá tiền: ' + total;
     let input = ` <input type="hidden" class="form-control" id="tongtien" name="tongtien" value="${total}">`
     t.innerHTML = input;
+
+    function handlePay() {
+        sessionStorage.removeItem("cartItems");
+    }
 
 </script>
 
