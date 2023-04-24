@@ -23,7 +23,7 @@ namespace WEBPHONE.Areas.Admin.Controllers
         {
             var db = new ShopConnectionDB();
 
-            var data = db.Fetch<dynamic>("SELECT MONTH(NgayTao) AS Thang, SUM(TongTien) AS TongThang FROM HoaDon GROUP BY MONTH(NgayTao) ORDER BY MONTH(NgayTao) ASC");
+            var data = db.Fetch<dynamic>("SELECT MONTH(NgayTao) AS Thang, SUM(TongTien) AS TongThang FROM HoaDon  WHERE YEAR(NgayTao)=YEAR(GETDATE()) GROUP BY MONTH(NgayTao) ORDER BY MONTH(NgayTao) ASC");
             var data2 = db.Fetch<dynamic>("SELECT YEAR(NgayTao) AS Nam, SUM(TongTien) AS TongNam FROM HoaDon GROUP BY YEAR(NgayTao) ORDER BY YEAR(NgayTao) ASC");
 
             
