@@ -15,12 +15,13 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="">
-                <span style="margin-right: 10px;">
-                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                </span>
-                <span><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></span>
-            </div>
+    <div class="">
+        <span style="margin-right: 10px;">
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </span>
+        <span style="margin-right: 10px;"><a href="@Url.Action("Index","DonHang")">Danh sách đơn hàng</a></span>
+        <span><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></span>
+    </div>
         }
     }
     else

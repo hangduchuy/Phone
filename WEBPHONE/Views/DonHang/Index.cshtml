@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<style>
+    .hoadon {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        padding: 3px 5px;
+        align-items: center;
+        margin: 0 10px 10px 10px;
+    }
+</style>
+<h2 style="text-align:center; margin: 0px 0 20px 0; background:#000; color:#fff; padding: 10px 0">Danh sách đơn hàng</h2>
+<div>
+    @if (ViewBag.DonHang.Count == 0)
+    {
+        <span>Chưa có đơn hàng</span>
+    }
+    else
+    {
+        <div style="display: flex; justify-content:space-between; margin: 0 10px; font-weight: 600;margin-bottom: 20px">
+            <div style="width: 200px; text-align: left;">Người Nhận</div>
+            <div style="width: 200px; ">Tổng Tiền</div>
+            <div style="">Ngày Đặt</div>
+            <div style="">Trạng Thái</div>
+        </div>
+        foreach (var item in ViewBag.DonHang)
+        {
+            <div class="hoadon">
+                <div style="width: 200px">@item.NguoiNhan</div>
+                <div style="text-align: center; width: 200px"> @item.TongTien </div>
+                <div style="text-align:right"> @item.NgayTao </div>
+                @if (item.TrangThai == 1)
+                {
+                    <div style="background: #00ff21; padding: 5px 10px; border-radius: 5px">Đã Thanh Toán</div>
+                }
+                else
+                {
+                    <div style="background: red; padding: 5px 10px; border-radius: 5px">Chưa Thanh Toán</div>
+                }
+            </div>
+        }
+    }
+
+</div>

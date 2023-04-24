@@ -182,6 +182,7 @@
     <Compile Include="Areas\Admin\Controllers\SanPhamAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BinhLuanController.cs" />
+    <Compile Include="Controllers\DonHangController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoaiSanPhamController.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Models\BaoCaoBanHang_TheoSanPham.cs" />
     <Compile Include="Models\BaoCao\mapBaoCaoThongKe.cs" />
     <Compile Include="Models\BUSS\BinhLuanBUS.cs" />
+    <Compile Include="Models\BUSS\DonHangBUS.cs" />
     <Compile Include="Models\BUSS\LoaiSanPhamBUS.cs" />
     <Compile Include="Models\BUSS\NhaSanXuatBUS.cs" />
     <Compile Include="Models\BUSS\ShopOnlineBUSS.cs" />
@@ -2674,6 +2676,7 @@
     <Content Include="Views\Shared\_AvartaDetails.cshtml" />
     <Content Include="Views\ThanhToan\Index.cshtml" />
     <Content Include="Views\Shared\_BinhLuan.cshtml" />
+    <Content Include="Views\DonHang\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
