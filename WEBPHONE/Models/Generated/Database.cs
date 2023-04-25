@@ -6,7 +6,7 @@
 // 
 //     Connection String Name: `ShopConnection`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=DESKTOP-K7E6TJQ\MAYAO;Initial Catalog=ShopOnline;Integrated Security=True`
+//     Connection String:      `Data Source=Musk\SQL;Initial Catalog=ShopOnline;Integrated Security=True`
 //     Schema:                 ``
 //     Include Views:          `False`
 
