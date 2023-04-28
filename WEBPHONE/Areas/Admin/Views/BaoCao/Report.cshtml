@@ -3,6 +3,18 @@
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 }
 
+<div class="d-sm-flex align-items-center mb-4">
+    
+
+    <div class="d-sm-inline-block btn btn-sm shadow-sm bg-white">
+        <form method="get">
+            <select class="btn" name="lang" id="year-select"></select>
+            <button type="submit" class="btn btn-sm btn-primary">Lọc</button>
+        </form>
+
+    </div>
+
+</div>
 
 <!-- Content Row -->
 <div class="container-fluid">
@@ -15,7 +27,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Doanh Thu năm hiện tại</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Doanh Thu năm </h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,12 +80,13 @@
                         <canvas id="myChart2"></canvas>
                     </div>
                     <div class="mt-4 text-center small">
-                        <span class="mr-2">
+                        <br />
+                        @*<span class="mr-2">
                             <i class="fas fa-circle text-info"></i> 2023
                         </span>
                         <span class="mr-2">
                             <i class="fas fa-circle text-primary"></i> 2022
-                        </span>
+                        </span>*@
                         @*<span class="mr-2">
                             <i class="fas fa-circle text-success"></i> Xã Hội
                         </span>*@
@@ -116,13 +129,24 @@
         type: 'doughnut',
         data: chartData2,
         options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
+            maintainAspectRatio: false,
+            legend: {display: false},
+            
         }
     });
 </script>
+
+<script>
+    function loadYearOptions(selectElement, yearsBack) {
+        var currentYear = new Date().getFullYear();
+        for (var i = 0; i <= yearsBack; i++) {
+            var option = document.createElement("option");
+            option.text = currentYear - i;
+            option.value = currentYear - i;
+            selectElement.add(option);
+        }
+    }
+    var yearSelect = document.getElementById("year-select");
+    loadYearOptions(yearSelect, 5);
+</script>
+

@@ -17,7 +17,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách loại sản phẩm</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -27,7 +27,7 @@
                             <th>Mã Loại sản phẩm</th>
                             <th>Tên Loại sản phẩm</th>
                             <th>Tình Trạng</th>
-                            <th colspan="2">
+                            <th style="text-align:center; padding-left:35px;">
                                 <a href="@Url.Action("Create", "LoaiSanPhamAdmin")"><img src="~/assets/images/AddNSX.png" /></a>
                             </th>
                         </tr>
@@ -38,8 +38,10 @@
                             <td>@item.MaLoaiSP</td>
                             <td>@item.TenLoaiSP</td>
                             <td>@item.TinhTrang</td>
-                            <th><a href="@Url.Action("Edit","LoaiSanPhamAdmin", new {id = @item.MaLoaiSP})"><img src="~/assets/images/edit.png" /></a></th>
-                            <th><a href="@Url.Action("TempDelete","LoaiSanPhamAdmin", new {id = @item.MaLoaiSP})"><img src="~/assets/images/Delete.png" /></a></th>
+                            <th>
+                                <a class="m-lg-2" href="@Url.Action("Edit","LoaiSanPhamAdmin", new {id = @item.MaLoaiSP})"><img src="~/assets/images/edit.png" /></a>
+                                <a href="@Url.Action("TempDelete","LoaiSanPhamAdmin", new {id = @item.MaLoaiSP})"><img src="~/assets/images/Delete.png" /></a>
+                            </th>
                         </tr>
                     }
                 </table>

@@ -19,11 +19,23 @@ namespace WEBPHONE.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Report()
+        public ActionResult Report(string lang)
         {
             var db = new ShopConnectionDB();
 
-            var data = db.Fetch<dynamic>("SELECT MONTH(NgayTao) AS Thang, SUM(TongTien) AS TongThang FROM HoaDon  WHERE YEAR(NgayTao)=YEAR(GETDATE()) GROUP BY MONTH(NgayTao) ORDER BY MONTH(NgayTao) ASC");
+            if (string.IsNullOrEmpty(lang))
+            {
+                lang = DateTime.Now.Year.ToString();
+
+            }
+            int langInt = int.Parse(lang);
+
+            var data = db.Fetch<dynamic>(@"SELECT MONTH(NgayTao) AS Thang, SUM(TongTien) AS TongThang
+                                FROM HoaDon
+                                WHERE YEAR(NgayTao) = @langInt
+                                GROUP BY MONTH(NgayTao)
+                                ORDER BY MONTH(NgayTao) ASC",
+                                new { langInt});
             var data2 = db.Fetch<dynamic>("SELECT YEAR(NgayTao) AS Nam, SUM(TongTien) AS TongNam FROM HoaDon GROUP BY YEAR(NgayTao) ORDER BY YEAR(NgayTao) ASC");
 
             
@@ -38,8 +50,8 @@ namespace WEBPHONE.Areas.Admin.Controllers
                     {
                         label = "Tổng tiền của tháng",
                         data = data.Select(x => x.TongThang).ToArray(),
-                        backgroundColor = "#3e95cd",
-                
+                        backgroundColor = new [] { "#3e95cd" },
+                        hoverBackgroundColor = new[] { "#2e59d9" },
                     }
                 }
             };
@@ -47,17 +59,17 @@ namespace WEBPHONE.Areas.Admin.Controllers
             //Năm
             var chartData2 = new
             {
-                //labels = data2.Select(x => x.Nam).ToArray(),
+                labels = data2.Select(x => x.Nam).ToArray(),
 
                 datasets = new[]
                 {
                     new
                     {
-                        label = "Tổng tiền của Năm",
+                        
                         data = data2.Select(x => x.TongNam).ToArray(),
                         backgroundColor = new [] { "#4e73df", "#36b9cc" },
                         
-                        hoverBackgroundColor = new[] { "#2e59d9", "#17a673", "#2c9faf" },
+                        hoverBackgroundColor = new[] { "#2e59d9", "#2c9faf", "#17a673" },
                         hoverBorderColor= new [] { "rgba(234, 236, 244, 1)" },
 
                     }

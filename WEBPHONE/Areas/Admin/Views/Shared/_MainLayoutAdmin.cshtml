@@ -18,7 +18,12 @@
           rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="~/Areas/AssetAdmin/css/sb-admin-2.min.css" rel="stylesheet">
+    <!--table-->
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+    
 </head>
+
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -48,42 +53,22 @@
             </div>
             <!-- Nav Item - Quản lý Nhà sản xuất Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index", "NhaSanXuatAdmin")">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Quản lý Nhà sản xuất</span>
+                    <span>Quản lý</span>
                 </a>
-                @*<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Components:</h6>
-                            <a class="collapse-item" href="buttons.html">Buttons</a>
-                            <a class="collapse-item" href="cards.html">Cards</a>
-                        </div>
-                    </div>*@
+
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Toàn bộ dữ liệu:</h6>
+                        <a class="collapse-item" href="@Url.Action("Index", "NhaSanXuatAdmin")">Nhà sản xuất</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "LoaiSanPhamAdmin")">Loại sản phẩm</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "SanPhamAdmin")">Sản Phẩm</a>                      
+                    </div>
+                </div>
             </li>
-            <!-- Nav Item - Quản lý Loại sản phẩm Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index", "LoaiSanPhamAdmin")">
-                    <i class="fas fa-fw fa-tasks"></i>
-                    <span>Quản lý Loại sản phẩm</span>
-                </a>
-                @*<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Utilities:</h6>
-                            <a class="collapse-item" href="utilities-color.html">Colors</a>
-                            <a class="collapse-item" href="utilities-border.html">Borders</a>
-                            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a class="collapse-item" href="utilities-other.html">Other</a>
-                        </div>
-                    </div>*@
-            </li>
-            <!-- Quản lý Sản phẩm -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index", "SanPhamAdmin")">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Quản lý sản phẩm</span>
-                </a>
-            </li>
+                      
             <!-- Thống kê -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="@Url.Action("Report", "BaoCao")">
@@ -410,6 +395,24 @@
     <!-- Page level custom scripts -->
     <script src="~/Areas/AssetAdmin/js/demo/chart-area-demo.js"></script>
     <script src="~/Areas/AssetAdmin/js/demo/chart-pie-demo.js"></script>
+    <!--table-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Areas/AssetAdmin/js/demo/datatables-demo.js"></script>
 
+    
 </body>
 </html>
+<script>
+    $('#dataTable').DataTable({
+        "columnDefs": [{
+            "targets": [2, 3], // chỉ định các cột cần gộp
+            "render": function (data, type, row, meta) {
+                // hàm render sẽ trả về nội dung của cột mới
+                return data + ' ';
+            }
+        }]
+    });
+</script>

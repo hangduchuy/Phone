@@ -16,7 +16,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -35,7 +35,7 @@
                             <th>Lượt Xem</th>
                             <th>Giá</th>
                             <th>Ghi Chú</th>
-                            <th colspan="2">
+                            <th style="text-align:center; padding-left:35px;">
                                 <a href="@Url.Action("Create", "SanPhamAdmin")"><img src="~/assets/images/AddNSX.png" /></a>
                             </th>
                         </tr>
@@ -54,9 +54,10 @@
                             <td>@(item.LuotXem ?? 0)</td>
                             <td>@(item.Gia ?? 0)</td>
                             <td>@(item.GhiChu ?? "")</td>
-                        <th><a href="@Url.Action("Edit","SanPhamAdmin", new {id = item.MaSP})"><img src="~/assets/images/edit.png" /></a></th>
-                            <th><a href="@Url.Action("Delete","SanPhamAdmin", new {id = item.MaSP})"><img src="~/assets/images/Delete.png"
-                        /></a></th>
+                            <th> 
+                                <a href="@Url.Action("Edit","SanPhamAdmin", new {id = item.MaSP})"><img src="~/assets/images/edit.png" /></a>
+                                <a href="@Url.Action("Delete","SanPhamAdmin", new {id = item.MaSP})"><img src="~/assets/images/Delete.png"/></a>
+                            </th>
                         </tr>
                     }
                 </table>
