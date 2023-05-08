@@ -19,6 +19,7 @@ namespace WEBPHONE.Areas.Admin.Controllers
             var data = db.Fetch<dynamic>("SELECT MONTH(NgayTao) AS Thang, SUM(TongTien) AS TongThang FROM HoaDon  WHERE YEAR(NgayTao)=YEAR(GETDATE()) GROUP BY MONTH(NgayTao) ORDER BY MONTH(NgayTao) ASC");
             var data3 = db.Fetch<dynamic>("SELECT SUM(TongTien) AS TotalMoney FROM HoaDon WHERE MONTH(NgayTao) = MONTH(GETDATE()) AND YEAR(NgayTao) = YEAR(GETDATE())");
             var data4 = db.Fetch<dynamic>("SELECT SUM(TongTien) AS TotalYear FROM HoaDon WHERE  YEAR(NgayTao) = YEAR(GETDATE())");
+            var data2 = db.Fetch<dynamic>("SELECT count(ID) AS TongBinhLuan FROM BinhLuan");
 
             //Tháng
             var chartData = new
@@ -42,6 +43,7 @@ namespace WEBPHONE.Areas.Admin.Controllers
             ViewBag.ChartData = JsonConvert.SerializeObject(chartData);
             ViewBag.TotalMoney = data3[0].TotalMoney;
             ViewBag.TotalYear = data4[0].TotalYear;
+            ViewBag.TongBinhLuan = data2[0].TongBinhLuan;
 
             return View();
         }

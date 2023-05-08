@@ -10,7 +10,7 @@
         <span class="h1 fw-bold mb-0">@ViewBag.Title</span>
     </div>
     <div class="row">
-        <div class="col-md-6" style="margin-left:10px">
+        <div class="col-md-7" style="margin-left:10px">
             <section id="loginForm">
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -56,10 +56,14 @@
                 }
             </section>
         </div>
-        <div class="col-md-4">
-            <section id="socialLoginForm">
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+            @*<section id="socialLoginForm">
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
+            </section>*@
+            <div>
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                     class="img-fluid" alt="Phone image">
+            </div>
         </div>
     </div>
 </div>

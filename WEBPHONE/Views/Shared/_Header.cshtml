@@ -1,15 +1,15 @@
 ﻿
 <header id="header">
     <div class="" style="background:#3a3a3a" >
-        <div class="font-size-14 px-3 border-start text-white" style="display:flex; justify-content:end; padding:10px 0">
+        <div class="font-size-14 px-3 text-white" style="display:flex; justify-content:flex-end; padding:10px 0;">
             @Html.Partial("_LoginPartial")
         </div>
     </div>
 
     <!-- Primary Navigation -->
     <nav class="navbar navbar-expand-lg px-3 navbar-dark" style="background:#1d1d1d">
-        <img src="~/assets/assets/phone.png" class="logo">
-        <a class="navbar-brand" href="./index.html">Mobile Shop</a>
+        <a href="@Url.Action("Index", "Home")"><img src="~/assets/assets/phone.png" class="logo"></a>
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">Mobile Shop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
 
                     @*@Html.ActionLink("Trang Chủ", "Index", "Home", new { @class = "my-link" })*@
                 </li>
-                <li class="nav-item" style="margin-top:8px">
+                <li class="nav-item" style="margin-top:8px; ">
                     <a style="color: rgba(255, 255, 255, 0.55)" href="@Url.Action("Index","Shop")">Sản Phẩm</a>
                     @*@Html.ActionLink("Sản Phẩm", "Index", "Shop")*@
                 </li>
@@ -52,7 +52,4 @@
     let cartCount = document.querySelector(".totalCart")
     
     cartCount.innerText = cartItems.length;
-
-    
-
 </script>

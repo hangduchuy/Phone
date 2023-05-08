@@ -22,7 +22,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                THU NHẬP (HÀNG THÁNG)
+                                THU NHẬP (THÁNG)
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalMoney.ToString("N0")</div>
                         </div>
@@ -40,7 +40,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                THU NHẬP (HẰNG NĂM)
+                                THU NHẬP (NĂM)
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalYear.ToString("N0")</div>
                         </div>
@@ -58,7 +58,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                Tasks
+                                Nhiệm Vụ
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
@@ -87,9 +87,9 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Requests
+                                Bình Luận
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TongBinhLuan.ToString()</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
